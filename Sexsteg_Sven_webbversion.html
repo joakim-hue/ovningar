@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sex steg för etisk analys – Sven och maten</title>
+<style>
+:root{
+  --ink:#1B1740; --muted:#5B5875; --brand:#2D24B8; --deep:#1E1A6E;
+  --lav:#ECEAFA; --lav2:#DAD6F5; --amber:#F2A65A; --amber-bg:#FDF0E1; --amber-ink:#8A4F0E;
+  --sage:#5E8F7C; --sage-bg:#E3EFEA; --line:#DAD6F5; --bg:#FFFFFF;
+  --serif:Cambria,Georgia,"Times New Roman",serif;
+  --sans:Calibri,"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55}
+.wrap{max-width:1040px;margin:0 auto;padding:28px 24px 48px;display:grid;grid-template-columns:230px 1fr;gap:40px}
+header.top{grid-column:1/-1;border-bottom:1px solid var(--line);padding-bottom:18px}
+header.top p{margin:0;color:var(--muted);font-size:15px}
+header.top h1{font-family:var(--serif);font-size:30px;line-height:1.2;margin:4px 0 0;color:var(--deep)}
+/* Rail */
+nav.rail ol{list-style:none;margin:0;padding:0;position:relative}
+nav.rail ol::before{content:"";position:absolute;left:17px;top:18px;bottom:18px;width:2px;background:var(--line)}
+nav.rail li{position:relative;display:flex;gap:12px;align-items:flex-start;padding:8px 0;color:var(--muted);font-size:15px;line-height:1.3}
+nav.rail .dot{flex:none;width:36px;height:36px;border-radius:50%;background:#fff;border:2px solid var(--line);display:grid;place-items:center;font-family:var(--serif);font-weight:700;color:var(--muted);position:relative;z-index:1}
+nav.rail li.current{color:var(--ink);font-weight:700}
+nav.rail li.current .dot{border-color:var(--brand);color:var(--brand)}
+nav.rail li.done .dot{background:var(--sage);border-color:var(--sage);color:#fff}
+nav.rail li .lbl{padding-top:7px}
+.rail-case{margin-top:22px;width:100%;background:none;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font:inherit;font-size:15px;color:var(--brand);cursor:pointer;text-align:left}
+.rail-case:hover{background:var(--lav)}
+/* Main */
+main{min-width:0}
+.case{background:var(--lav);border-radius:14px;padding:22px 24px;margin-bottom:28px}
+.case h2{font-family:var(--serif);font-size:21px;margin:0 0 8px;color:var(--deep)}
+.case p{margin:0 0 10px;max-width:68ch}
+.case p:last-child{margin-bottom:0}
+.quote{font-family:var(--serif);font-style:italic}
+.step-head{display:flex;align-items:baseline;gap:14px;margin-bottom:6px}
+.step-no{font-family:var(--serif);font-size:44px;line-height:1;color:var(--amber);font-weight:700}
+.step-head h2{font-family:var(--serif);font-size:25px;margin:0;color:var(--deep);line-height:1.2}
+.step-why{color:var(--muted);margin:0 0 20px;max-width:68ch}
+.q{font-weight:700;margin:0 0 14px;max-width:68ch}
+.opts{display:grid;gap:10px;margin:0 0 18px}
+.opt{display:flex;gap:14px;align-items:flex-start;text-align:left;width:100%;font:inherit;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:14px 16px;cursor:pointer;transition:border-color .15s,background .15s}
+.opt:hover:not(:disabled){border-color:var(--brand);background:#FAF9FF}
+.opt:focus-visible,.btn:focus-visible,.rail-case:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.opt .key{flex:none;width:28px;height:28px;border-radius:50%;background:var(--lav);color:var(--deep);display:grid;place-items:center;font-weight:700;font-size:14px;margin-top:1px}
+.opt.wrong{border-color:#E8C9A3;background:var(--amber-bg);color:var(--muted);cursor:default}
+.opt.wrong .key{background:#F4D9B8;color:var(--amber-ink)}
+.opt.right{border-color:var(--sage);background:var(--sage-bg)}
+.opt.right .key{background:var(--sage);color:#fff}
+.opt:disabled{cursor:default}
+.fb{border-radius:10px;padding:16px 18px;margin:0 0 18px;max-width:72ch}
+.fb h3{margin:0 0 6px;font-size:17px}
+.fb p{margin:0}
+.fb.ok{background:var(--sage-bg);border-left:5px solid var(--sage)}
+.fb.ok h3{color:#2F5E4C}
+.fb.no{background:var(--amber-bg);border-left:5px solid var(--amber)}
+.fb.no h3{color:var(--amber-ink)}
+.fb .cons{margin-top:8px;font-style:italic;color:var(--muted)}
+.btn{font:inherit;font-weight:700;border:none;border-radius:999px;padding:12px 24px;cursor:pointer;background:var(--brand);color:#fff}
+.btn:hover{background:var(--deep)}
+.btn.ghost{background:transparent;color:var(--brand);border:1.5px solid var(--brand)}
+/* Analysis sheet */
+.sheet{margin-top:34px;border-top:1px solid var(--line);padding-top:20px}
+.sheet h3{font-family:var(--serif);font-size:19px;margin:0 0 4px;color:var(--deep)}
+.sheet .sub{color:var(--muted);font-size:15px;margin:0 0 12px}
+.sheet ol{margin:0;padding-left:0;list-style:none;counter-reset:s}
+.sheet li{counter-increment:s;display:grid;grid-template-columns:30px 1fr;gap:8px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:15.5px}
+.sheet li::before{content:counter(s);font-family:var(--serif);font-weight:700;color:var(--sage)}
+.sheet li b{display:block;font-size:14px;color:var(--muted);font-weight:700}
+.sheet .empty{color:var(--muted);font-style:italic;font-size:15px}
+/* End */
+.end h2{font-family:var(--serif);font-size:28px;color:var(--deep);margin:0 0 8px}
+.score{display:flex;align-items:baseline;gap:12px;margin:10px 0 18px}
+.score .big{font-family:var(--serif);font-size:54px;font-weight:700;color:var(--brand);line-height:1}
+.reflect{background:var(--amber-bg);border-radius:12px;padding:18px 20px;margin:22px 0}
+.reflect h3{margin:0 0 6px;color:var(--amber-ink)}
+.small{font-size:14px;color:var(--muted)}
+dialog{border:none;border-radius:14px;max-width:620px;padding:26px 28px;color:var(--ink)}
+dialog::backdrop{background:rgba(27,23,64,.45)}
+dialog h2{font-family:var(--serif);color:var(--deep);margin-top:0}
+@media (max-width:760px){
+  .wrap{grid-template-columns:1fr;gap:18px;padding:18px 16px 40px}
+  nav.rail ol{display:flex;gap:6px}
+  nav.rail ol::before{display:none}
+  nav.rail li{padding:0}
+  nav.rail li .lbl{display:none}
+  nav.rail .dot{width:32px;height:32px;font-size:14px}
+  .rail-case{margin-top:12px}
+  header.top h1{font-size:24px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <p>Övning till modul 2 och 3 · Palliativ omvårdnad</p>
+    <h1>Sex steg för etisk analys: Sven och maten</h1>
+  </header>
+
+  <nav class="rail" aria-label="Analysens steg">
+    <ol id="rail"></ol>
+    <button class="rail-case" id="openCase" type="button">Läs fallet igen</button>
+  </nav>
+
+  <main id="main" tabindex="-1"></main>
+</div>
+
+<dialog id="caseDlg">
+  <h2>Fallet: Sven</h2>
+  <div id="caseText"></div>
+  <p><button class="btn" id="closeCase" type="button">Tillbaka till övningen</button></p>
+</dialog>
+
+<script>
+/* ---------- Innehåll ---------- */
+var CASE = [
+  "Sven är 81 år och har en obotlig cancersjukdom. Han bor på ett särskilt boende och får palliativ vård.",
+  "Den senaste veckan äter Sven allt mindre. Han lämnar det mesta på tallriken, grimaserar när han tuggar och säger ”jag orkar inte” när personalen försöker hjälpa honom att äta upp.",
+  "Hans dotter Maria är orolig och arg: <span class=\"quote\">”Ni måste se till att pappa äter. Om han inte äter ska han ha dropp – annars svälter ni ihjäl honom.”</span>",
+  "En kollega säger i personalrummet: <span class=\"quote\">”Han är palliativ. Det är naturligt att man slutar äta, vi behöver inte göra något.”</span>",
+  "<span class=\"small\">Fallet är konstruerat för undervisning.</span>"
+];
+
+var STEPS = [
+ { title:"Formulera problemet konkret",
+   why:"Beskriv det beslut som behöver fattas – inte en etikett på patienten eller de närstående.",
+   q:"Vilken formulering beskriver problemet bäst?",
+   sheet:"Hur kan Svens obehag vid måltiderna förstås och lindras, och hur kan Marias oro bemötas?",
+   opts:[
+    {t:"”Sven vägrar äta.”", ok:false,
+     fb:"Det här är en etikett, inte ett problem att lösa. Den säger inget om varför Sven äter mindre eller vilket beslut som behöver fattas.",
+     c:"Om problemet formuleras så här riskerar teamet att fokusera på att få i Sven maten – inte på varför han har svårt att äta."},
+    {t:"”Hur kan Svens obehag vid måltiderna förstås och lindras, och hur kan Marias oro bemötas?”", ok:true,
+     fb:"Formuleringen beskriver vad som behöver lösas och rymmer både Svens behov och Marias oro. Den öppnar för flera lösningar."},
+    {t:"”Maria lägger sig i vården.”", ok:false,
+     fb:"Det här beskriver en person negativt i stället för problemet. Marias oro är verklig och behöver bemötas.",
+     c:"Om Maria uppfattas som ”besvärlig” är risken stor att ingen frågar vad hon egentligen är rädd för."},
+    {t:"”Ska Sven få dropp eller inte?”", ok:false,
+     fb:"Formuleringen låser frågan vid en enda åtgärd innan man vet vad problemet är. Dropp är en medicinsk fråga som kan bli aktuell senare – men först behöver man förstå varför Sven äter mindre.",
+     c:"Då riskerar samtalet att bli en dragkamp om dropp, medan obehaget i munnen aldrig blir undersökt."}
+   ]},
+ { title:"Skilj fakta från antaganden",
+   why:"Vad har faktiskt observerats? Vad säger Sven själv? Vad vet ni inte ännu?",
+   q:"Vilket av påståendena är en observation och inte ett antagande?",
+   sheet:"Fakta: Sven äter allt mindre och grimaserar när han tuggar. Det är ännu inte känt varför.",
+   opts:[
+    {t:"”Sven vill inte leva längre.”", ok:false,
+     fb:"Det här är en långtgående tolkning. Sven har sagt ”jag orkar inte” – vad han menar med det behöver undersökas, inte antas.",
+     c:"En sådan tolkning i rapporten kan styra hur hela teamet bemöter Sven."},
+    {t:"”Det är ett naturligt döende.”", ok:false,
+     fb:"Det kan vara så – men det är ett antagande. Att en person får palliativ vård räcker inte som skäl för att förklara allt minskat intag som naturligt döende.",
+     c:"Om antagandet får stå oprövat kan ett behandlingsbart problem, till exempel svamp i munnen, missas."},
+    {t:"”Sven äter allt mindre och grimaserar när han tuggar.”", ok:true,
+     fb:"Det här är något personalen faktiskt har sett. Grimasen är en viktig observation – den kan tyda på obehag i munnen som behöver bedömas."},
+    {t:"”Maria vet vad Sven egentligen vill.”", ok:false,
+     fb:"Maria kan bidra med värdefull kunskap om sin pappa, men det är ett antagande att hennes önskan är densamma som hans. Sven själv har inte fått frågan.",
+     c:"Då riskerar Svens egen röst att försvinna i samtalet."}
+   ]},
+ { title:"Identifiera mål och värden",
+   why:"Vad är viktigt för patienten? Hur berörs självbestämmande, välbefinnande och integritet? Vad behöver de närstående?",
+   q:"Vad är viktigast att ta reda på i det här steget?",
+   sheet:"Mål: att måltiderna blir något Sven själv önskar och orkar, utan obehag. Maria behöver få veta att hennes pappa inte överges.",
+   opts:[
+    {t:"Hur många kalorier Sven behöver per dag.", ok:false,
+     fb:"Näringsbehov kan vara relevant i ett annat skede, men målet här är vad som är viktigt för Sven. Press att äta kan förstärka obehag och skuld.",
+     c:"Om kalorier blir målet kan varje måltid bli en kamp för både Sven och personalen."},
+    {t:"Vad avdelningens rutin säger om måltidstider.", ok:false,
+     fb:"Rutiner ska inte väga tyngre än patientens aktuella behov. Frågan i det här steget är vad som är viktigt för Sven.",
+     c:"Kanske orkar Sven äta på förmiddagen men aldrig vid middagen – det syns inte om bara rutinen styr."},
+    {t:"Vad Sven själv vill och orkar – och vad Maria är mest rädd ska hända.", ok:true,
+     fb:"Precis. Svens vilja och välbefinnande står i centrum. Samtidigt kan Marias krav på dropp uttrycka en rädsla för att pappan överges. Fråga gärna: ”Vad är du mest rädd ska hända om han inte får dropp?”"},
+    {t:"Vad Maria anser att hennes pappa ska ha.", ok:false,
+     fb:"Marias perspektiv behöver höras, men hon bestämmer inte över en vuxen patients vård. Det är Svens mål och värden som ska identifieras först.",
+     c:"Om Marias önskemål styr kan Sven få insatser han själv inte vill ha."}
+   ]},
+ { title:"Formulera minst två realistiska alternativ",
+   why:"Ta med anpassning av insatsen, annan tidpunkt och ytterligare bedömning. Undvik ett falskt val mellan att göra allt eller ingenting.",
+   q:"Vilket förslag följer det här steget bäst?",
+   sheet:"Alternativ: sjuksköterskan bedömer munnen och eventuell smärta; små portioner av det Sven tycker om när han orkar; frågan om dropp tas upp som en egen medicinsk bedömning.",
+   opts:[
+    {t:"Antingen får Sven dropp, eller så gör vi ingenting.", ok:false,
+     fb:"Det här är just det falska allt-eller-inget-val som modellen varnar för. Det finns många insatser mellan dropp och ingenting.",
+     c:"Munvård, anpassad mat och en bedömning av munnen blir aldrig ens diskuterade."},
+    {t:"Be sjuksköterskan bedöma munnen och smärtan, erbjuda små portioner av det Sven tycker om när han orkar, och ta upp frågan om dropp med läkaren som en egen bedömning.", ok:true,
+     fb:"Bra – flera realistiska alternativ som kan kombineras: en ny bedömning, anpassning av måltiderna och en separat medicinsk fråga om dropp. Munvård och anpassade erbjudanden är aktiva insatser."},
+    {t:"Fortsätta som vanligt och se vad som händer.", ok:false,
+     fb:"Att avvakta kan ibland vara ett alternativ – men då behöver det förenas med en plan. Här finns en observation (grimasen) som behöver följas upp nu.",
+     c:"Om ingen gör något kan ett obehag som går att lindra finnas kvar Svens sista tid."},
+    {t:"Låta Maria mata sin pappa tills tallriken är tom.", ok:false,
+     fb:"Närstående kan gärna vara delaktiga om både de och patienten vill – men målet är inte en tom tallrik. Press att äta kan förstärka obehag och skuld.",
+     c:"Måltiderna riskerar att bli en plåga för Sven och en konfliktyta mellan honom och Maria."}
+   ]},
+ { title:"Väg skälen och fördela ansvar",
+   why:"Jämför nytta, risker, patientens vilja och genomförbarhet. Klargör vem som fattar beslut och vem som genomför åtgärderna.",
+   q:"Vem ansvarar för vad när det gäller frågan om dropp?",
+   sheet:"Ansvar: läkaren bedömer om dropp gör nytta för Sven. Sjuksköterskan bedömer munnen. Undersköterskan bidrar med observationer. Sven involveras.",
+   opts:[
+    {t:"Maria bestämmer, eftersom hon är närmast anhörig.", ok:false,
+     fb:"Närstående blir inte automatiskt medicinska beslutsfattare för en vuxen patient. Marias kunskap och oro är viktig – men beslutet fattas inte av henne.",
+     c:"Maria skulle dessutom få bära ett ansvar som inte är hennes."},
+    {t:"Undersköterskan, eftersom hon ser Sven mest.", ok:false,
+     fb:"Dina observationer är mycket värdefulla, men du ordinerar inte behandling. Det du ser ska föras vidare till sjuksköterskan och läkaren.",
+     c:"Ett beslut utanför ens roll kan inte heller följas upp på rätt sätt."},
+    {t:"Teamet röstar om saken på nästa möte.", ok:false,
+     fb:"Etiska samtal i teamet är värdefulla, men beslut om behandling fattas inte genom omröstning. Den som har det medicinska ansvaret behöver identifieras.",
+     c:"Frågan skjuts upp medan Sven fortsätter att ha obehag."},
+    {t:"Läkaren bedömer om dropp gör nytta för Sven, sjuksköterskan bedömer munnen och undersköterskan bidrar med observationer – och Sven involveras.", ok:true,
+     fb:"Rätt. Artificiell vätska och näring kräver en individuell medicinsk bedömning av vilket problem den ska lösa. Alla har sin del, och Sven själv är med i besluten så långt det går."}
+   ]},
+ { title:"Bestäm uppföljning",
+   why:"Vad ska observeras, när och av vem? Vad skulle få teamet att ändra planen?",
+   q:"Vilken uppföljning är bäst?",
+   sheet:"Uppföljning: vad Sven äter och dricker, tecken på obehag i munnen och hur han mår dokumenteras. Planen följs upp efter några dagar och omprövas om besvären kvarstår.",
+   opts:[
+    {t:"Dokumentera att Sven inte äter.", ok:false,
+     fb:"Det säger för lite för att nästa person ska kunna agera. Vad åt han, vad hände vid måltiden, hur mådde han?",
+     c:"Nästa arbetspass vet inte om planen fungerar."},
+    {t:"Observera och dokumentera vad Sven äter och dricker, tecken på obehag i munnen och hur han mår – och följ upp efter några dagar.", ok:true,
+     fb:"Precis. Konkreta observationer, en tidpunkt för uppföljning och en tydlig signal för när planen behöver omprövas. Det du ser förs vidare till nästa arbetspass."},
+    {t:"Ingen uppföljning behövs när planen väl är gjord.", ok:false,
+     fb:"Utan uppföljning vet ingen om planen hjälper. Svens tillstånd kan också förändras, och då behöver planen omprövas.",
+     c:"Ett försök som var tänkt att vara tillfälligt riskerar att bli permanent."},
+    {t:"Väga Sven varje dag tills vikten ökar.", ok:false,
+     fb:"Målet i Svens situation är välbefinnande, inte viktökning. Daglig vägning kan dessutom vara belastande för honom.",
+     c:"Vågen blir ett mått på något som inte är målet med vården."}
+   ]}
+];
+
+/* ---------- SCORM 1.2 (valfritt) ---------- */
+var LMS = (function(){
+  var api = null;
+  function find(w){ var n=0; while(w && !w.API && w.parent && w.parent!==w && n<10){ w=w.parent; n++; } return w && w.API ? w.API : null; }
+  try { api = find(window) || (window.opener ? find(window.opener) : null); } catch(e){ api = null; }
+  var ok = false;
+  function call(fn, a, b){ try { return api ? api[fn](a, b) : ""; } catch(e){ return ""; } }
+  return {
+    init:function(){ if(!api) return; ok = String(call("LMSInitialize","")) === "true";
+      var st = call("LMSGetValue","cmi.core.lesson_status");
+      if(st==="not attempted" || st===""){ call("LMSSetValue","cmi.core.lesson_status","incomplete"); call("LMSCommit",""); } },
+    finish:function(pct){ if(!ok) return;
+      call("LMSSetValue","cmi.core.score.min","0"); call("LMSSetValue","cmi.core.score.max","100");
+      call("LMSSetValue","cmi.core.score.raw", String(pct));
+      call("LMSSetValue","cmi.core.lesson_status","completed"); call("LMSCommit",""); },
+    close:function(){ if(ok){ call("LMSFinish",""); ok=false; } }
+  };
+})();
+
+/* ---------- Tillstånd och rendering ---------- */
+var state = { step:-1, tried:[], firstTry:0, solved:false, done:[] };
+var main = document.getElementById("main");
+var rail = document.getElementById("rail");
+var KEYS = ["A","B","C","D"];
+
+function esc(s){ return s; }
+function renderRail(){
+  rail.innerHTML = STEPS.map(function(s,i){
+    var cls = state.done[i] ? "done" : (i===state.step ? "current" : "");
+    return '<li class="'+cls+'"'+(i===state.step?' aria-current="step"':'')+'><span class="dot">'+(state.done[i]?"✓":(i+1))+'</span><span class="lbl">'+s.title+'</span></li>';
+  }).join("");
+}
+function sheetHTML(){
+  var items = state.done.map(function(d,i){ return d ? '<li><div><b>'+STEPS[i].title+'</b>'+STEPS[i].sheet+'</div></li>' : ""; }).join("");
+  return '<section class="sheet" aria-label="Er analys"><h3>Analysen av Svens situation</h3><p class="sub">Byggs upp steg för steg när du svarar rätt.</p>'+
+    (items ? '<ol>'+items+'</ol>' : '<p class="empty">Ännu inga steg klara.</p>')+'</section>';
+}
+function renderIntro(){
+  renderRail();
+  main.innerHTML =
+    '<section class="case"><h2>Fallet</h2>'+CASE.map(function(p){return "<p>"+p+"</p>";}).join("")+'</section>'+
+    '<p style="max-width:68ch">Du ska nu analysera Svens situation med modellen i sex steg. I varje steg väljer du det alternativ som följer modellen bäst. Väljer du fel ser du vad som kan hända och får försöka igen. För varje rätt svar växer en färdig analys fram under frågorna.</p>'+
+    '<p><button class="btn" id="start" type="button">Börja med steg 1</button></p>';
+  document.getElementById("start").onclick = function(){ goStep(0); };
+}
+function goStep(i){
+  state.step = i; state.tried = []; state.solved = false;
+  renderStep(); main.focus();
+  window.scrollTo(0,0);
+}
+function renderStep(){
+  renderRail();
+  var s = STEPS[state.step];
+  var html = '<div class="step-head"><span class="step-no">'+(state.step+1)+'</span><h2>'+s.title+'</h2></div>'+
+    '<p class="step-why">'+s.why+'</p><p class="q">'+s.q+'</p><div class="opts" role="group" aria-label="Svarsalternativ">';
+  s.opts.forEach(function(o,k){
+    var cls = state.tried.indexOf(k)>-1 ? (o.ok?"right":"wrong") : "";
+    var dis = (state.solved || state.tried.indexOf(k)>-1) ? " disabled" : "";
+    html += '<button class="opt '+cls+'" data-k="'+k+'" type="button"'+dis+'><span class="key">'+KEYS[k]+'</span><span>'+o.t+'</span></button>';
+  });
+  html += '</div><div id="fb" aria-live="polite"></div>'+sheetHTML();
+  main.innerHTML = html;
+  Array.prototype.forEach.call(main.querySelectorAll(".opt"), function(b){
+    b.onclick = function(){ choose(parseInt(b.getAttribute("data-k"),10)); };
+  });
+}
+function choose(k){
+  var s = STEPS[state.step], o = s.opts[k];
+  if(state.tried.indexOf(k)>-1 || state.solved) return;
+  state.tried.push(k);
+  if(o.ok){
+    state.solved = true;
+    if(state.tried.length===1) state.firstTry++;
+    state.done[state.step] = true;
+  }
+  renderStep();
+  var fb = document.getElementById("fb");
+  if(o.ok){
+    var last = state.step === STEPS.length-1;
+    fb.innerHTML = '<div class="fb ok"><h3>Rätt</h3><p>'+o.fb+'</p></div>'+
+      '<button class="btn" id="next" type="button">'+(last?"Se hela analysen":"Gå till steg "+(state.step+2))+'</button>';
+    document.getElementById("next").onclick = function(){ last ? renderEnd() : goStep(state.step+1); };
+    document.getElementById("next").focus();
+  } else {
+    fb.innerHTML = '<div class="fb no"><h3>Inte riktigt</h3><p>'+o.fb+'</p>'+(o.c?'<p class="cons">Vad kan hända: '+o.c+'</p>':'')+'</div>'+
+      '<p class="small">Välj ett annat alternativ.</p>';
+  }
+}
+function renderEnd(){
+  state.step = STEPS.length;
+  renderRail();
+  var pct = Math.round(state.firstTry/STEPS.length*100);
+  LMS.finish(pct);
+  main.innerHTML = '<section class="end"><h2>Analysen är klar</h2>'+
+    '<div class="score"><span class="big">'+state.firstTry+' av 6</span><span>steg rätt på första försöket</span></div>'+
+    '<p style="max-width:68ch">Här är hela analysen av Svens situation, steg för steg. Så här kan en färdig etisk analys se ut – kort, konkret och med tydligt ansvar.</p>'+
+    sheetHTML().replace('Byggs upp steg för steg när du svarar rätt.','Modellens sex steg tillämpade på fallet.')+
+    '<div class="reflect"><h3>Reflektera</h3><p>Tänk på en patient du har mött som åt allt mindre. Vilka observationer gjorde du – och vem förde du dem vidare till? Vad hade du gjort annorlunda med modellen i huvudet?</p></div>'+
+    '<p><button class="btn ghost" id="again" type="button">Gör övningen igen</button></p>'+
+    '<p class="small">Övningen bygger på kunskapsstöden för modul 2 och 3. Fallet är konstruerat för undervisning. Du kan stänga fönstret nu.</p></section>';
+  document.getElementById("again").onclick = function(){ state = { step:-1, tried:[], firstTry:0, solved:false, done:[] }; renderIntro(); };
+  main.focus();
+}
+
+/* Fallet i dialog */
+var dlg = document.getElementById("caseDlg");
+document.getElementById("caseText").innerHTML = CASE.map(function(p){return "<p>"+p+"</p>";}).join("");
+document.getElementById("openCase").onclick = function(){ if(dlg.showModal){ dlg.showModal(); } else { alert(document.getElementById("caseText").innerText); } };
+document.getElementById("closeCase").onclick = function(){ dlg.close(); };
+
+LMS.init();
+window.addEventListener("beforeunload", LMS.close);
+window.addEventListener("pagehide", LMS.close);
+renderIntro();
+</script>
+</body>
+</html>
