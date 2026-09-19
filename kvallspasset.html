@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kvällspasset – lagar och ansvar i praktiken</title>
+<meta name="description" content="Klicka här för att öppna den interaktiva övningen. Du möter sex situationer under ett kvällspass. Tar cirka 10–15 minuter.">
+<meta property="og:title" content="Kvällspasset – lagar och ansvar i praktiken">
+<meta property="og:description" content="Klicka här för att öppna den interaktiva övningen. Du möter sex situationer under ett kvällspass. Tar cirka 10–15 minuter.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="sv_SE">
+<style>
+:root{
+  --ink:#1B1740; --muted:#5B5875; --brand:#2D24B8; --deep:#1E1A6E;
+  --lav:#ECEAFA; --lav2:#DAD6F5; --amber:#F2A65A; --amber-bg:#FDF0E1; --amber-ink:#8A4F0E;
+  --sage:#5E8F7C; --sage-bg:#E3EFEA; --line:#DAD6F5; --bg:#FFFFFF;
+  --serif:Cambria,Georgia,"Times New Roman",serif;
+  --sans:Calibri,"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55}
+.wrap{max-width:1040px;margin:0 auto;padding:28px 24px 48px;display:grid;grid-template-columns:230px 1fr;gap:40px}
+header.top{grid-column:1/-1;border-bottom:1px solid var(--line);padding-bottom:18px}
+header.top p{margin:0;color:var(--muted);font-size:15px}
+header.top h1{font-family:var(--serif);font-size:30px;line-height:1.2;margin:4px 0 0;color:var(--deep)}
+/* Rail */
+nav.rail ol{list-style:none;margin:0;padding:0;position:relative}
+nav.rail ol::before{content:"";position:absolute;left:17px;top:18px;bottom:18px;width:2px;background:var(--line)}
+nav.rail li{position:relative;display:flex;gap:12px;align-items:flex-start;padding:8px 0;color:var(--muted);font-size:15px;line-height:1.3}
+nav.rail .dot{flex:none;width:36px;height:36px;border-radius:50%;background:#fff;border:2px solid var(--line);display:grid;place-items:center;font-family:var(--serif);font-weight:700;color:var(--muted);position:relative;z-index:1}
+nav.rail li.current{color:var(--ink);font-weight:700}
+nav.rail li.current .dot{border-color:var(--brand);color:var(--brand)}
+nav.rail li.done .dot{background:var(--sage);border-color:var(--sage);color:#fff}
+nav.rail li .lbl{padding-top:7px}
+.rail-case{margin-top:22px;width:100%;background:none;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font:inherit;font-size:15px;color:var(--brand);cursor:pointer;text-align:left}
+.rail-case:hover{background:var(--lav)}
+/* Main */
+main{min-width:0}
+.case{background:var(--lav);border-radius:14px;padding:22px 24px;margin-bottom:28px}
+.case h2{font-family:var(--serif);font-size:21px;margin:0 0 8px;color:var(--deep)}
+.case p{margin:0 0 10px;max-width:68ch}
+.case p:last-child{margin-bottom:0}
+.quote{font-family:var(--serif);font-style:italic}
+.step-head{display:flex;align-items:baseline;gap:14px;margin-bottom:6px}
+.step-no{font-family:var(--serif);font-size:44px;line-height:1;color:var(--amber);font-weight:700}
+.step-head h2{font-family:var(--serif);font-size:25px;margin:0;color:var(--deep);line-height:1.2}
+.step-why{color:var(--muted);margin:0 0 20px;max-width:68ch}
+.q{font-weight:700;margin:0 0 14px;max-width:68ch}
+.opts{display:grid;gap:10px;margin:0 0 18px}
+.opt{display:flex;gap:14px;align-items:flex-start;text-align:left;width:100%;font:inherit;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:14px 16px;cursor:pointer;transition:border-color .15s,background .15s}
+.opt:hover:not(:disabled){border-color:var(--brand);background:#FAF9FF}
+.opt:focus-visible,.btn:focus-visible,.rail-case:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.opt .key{flex:none;width:28px;height:28px;border-radius:50%;background:var(--lav);color:var(--deep);display:grid;place-items:center;font-weight:700;font-size:14px;margin-top:1px}
+.opt.wrong{border-color:#E8C9A3;background:var(--amber-bg);color:var(--muted);cursor:default}
+.opt.wrong .key{background:#F4D9B8;color:var(--amber-ink)}
+.opt.right{border-color:var(--sage);background:var(--sage-bg)}
+.opt.right .key{background:var(--sage);color:#fff}
+.opt:disabled{cursor:default}
+.fb{border-radius:10px;padding:16px 18px;margin:0 0 18px;max-width:72ch}
+.fb h3{margin:0 0 6px;font-size:17px}
+.fb p{margin:0}
+.fb.ok{background:var(--sage-bg);border-left:5px solid var(--sage)}
+.fb.ok h3{color:#2F5E4C}
+.fb.no{background:var(--amber-bg);border-left:5px solid var(--amber)}
+.fb.no h3{color:var(--amber-ink)}
+.fb .cons{margin-top:8px;font-style:italic;color:var(--muted)}
+.btn{font:inherit;font-weight:700;border:none;border-radius:999px;padding:12px 24px;cursor:pointer;background:var(--brand);color:#fff}
+.btn:hover{background:var(--deep)}
+.btn.ghost{background:transparent;color:var(--brand);border:1.5px solid var(--brand)}
+/* Analysis sheet */
+.sheet{margin-top:34px;border-top:1px solid var(--line);padding-top:20px}
+.sheet h3{font-family:var(--serif);font-size:19px;margin:0 0 4px;color:var(--deep)}
+.sheet .sub{color:var(--muted);font-size:15px;margin:0 0 12px}
+.sheet ol{margin:0;padding-left:0;list-style:none;counter-reset:s}
+.sheet li{counter-increment:s;display:grid;grid-template-columns:30px 1fr;gap:8px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:15.5px}
+.sheet li::before{content:counter(s);font-family:var(--serif);font-weight:700;color:var(--sage)}
+.sheet li b{display:block;font-size:14px;color:var(--muted);font-weight:700}
+.sheet .empty{color:var(--muted);font-style:italic;font-size:15px}
+/* End */
+.end h2{font-family:var(--serif);font-size:28px;color:var(--deep);margin:0 0 8px}
+.score{display:flex;align-items:baseline;gap:12px;margin:10px 0 18px}
+.score .big{font-family:var(--serif);font-size:54px;font-weight:700;color:var(--brand);line-height:1}
+.reflect{background:var(--amber-bg);border-radius:12px;padding:18px 20px;margin:22px 0}
+.reflect h3{margin:0 0 6px;color:var(--amber-ink)}
+.small{font-size:14px;color:var(--muted)}
+dialog{border:none;border-radius:14px;max-width:620px;padding:26px 28px;color:var(--ink)}
+dialog::backdrop{background:rgba(27,23,64,.45)}
+dialog h2{font-family:var(--serif);color:var(--deep);margin-top:0}
+@media (max-width:760px){
+  .wrap{grid-template-columns:1fr;gap:18px;padding:18px 16px 40px}
+  nav.rail ol{display:flex;gap:6px}
+  nav.rail ol::before{display:none}
+  nav.rail li{padding:0}
+  nav.rail li .lbl{display:none}
+  nav.rail .dot{width:32px;height:32px;font-size:14px}
+  .rail-case{margin-top:12px}
+  header.top h1{font-size:24px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <p>Övning till modul 3 · Palliativ omvårdnad</p>
+    <h1>Kvällspasset: sex situationer, sex beslut</h1>
+  </header>
+
+  <nav class="rail" aria-label="Kvällens situationer">
+    <ol id="rail"></ol>
+    <button class="rail-case" id="openCase" type="button">Läs inledningen igen</button>
+  </nav>
+
+  <main id="main" tabindex="-1"></main>
+</div>
+
+<dialog id="caseDlg">
+  <h2>Kvällspasset</h2>
+  <div id="caseText"></div>
+  <p><button class="btn" id="closeCase" type="button">Tillbaka till övningen</button></p>
+</dialog>
+
+<script>
+/* ---------- Innehåll ---------- */
+var CASE = [
+  "Du arbetar kvällspass på ett särskilt boende. En av dina patienter är Göran, 76 år. Han har en obotlig lungcancer med spridning och får palliativ vård. Han är klar i tanken men mycket trött.",
+  "Under kvällen hamnar du i sex situationer där lagar och ansvar spelar roll. I varje situation väljer du vad du gör.",
+  "<span class=\"small\">Fallet är konstruerat för undervisning och bygger på kunskapsstödet för modul 3.</span>"
+];
+
+var STEPS = [
+ { title:"Duschen",
+   why:"Klockan 17.30. Enligt schemat ska Göran duscha i kväll. I går sa han ja till dusch, men nu skakar han på huvudet: ”Inte i dag.”",
+   q:"Vad gör du?",
+   sheet:"Samtycke gäller den aktuella åtgärden och kan tas tillbaka. Ett tidigare ja betyder inte ja till allt framöver.",
+   opts:[
+    {t:"Duschar honom ändå – han sa ju ja i går, och duschen är planerad.", ok:false,
+     fb:"Samtycke gäller den aktuella åtgärden och kan tas tillbaka. Ett tidigare ja betyder inte att Göran samtycker nu.",
+     c:"Göran upplever att hans nej inte räknas. Nästa gång kanske han inte vågar säga vad han vill."},
+    {t:"Respekterar hans nej, frågar vad som känns jobbigt och erbjuder en annan tid eller tvätt vid handfatet. Du dokumenterar vad han sa.", ok:true,
+     fb:"Du respekterar att samtycket gäller just nu, undersöker orsaken och erbjuder ett alternativ. Dokumentationen gör att nästa pass vet vad som hänt."},
+    {t:"Ringer hans son och ber honom övertala Göran.", ok:false,
+     fb:"Göran är klar i tanken och kan själv ta ställning. Närstående blir inte beslutsfattare för en vuxen patient, och att övertala tills någon ger med sig är inte samtycke.",
+     c:"Göran känner sig överkörd, och sonen hamnar i en roll som inte är hans."},
+    {t:"Stryker duschen ur schemat för resten av veckan.", ok:false,
+     fb:"Ett nej i dag betyder inte nej för alltid. Samtycket gäller den aktuella åtgärden – fråga igen en annan dag.",
+     c:"Göran får kanske ingen dusch på en vecka, trots att han hade velat det i morgon."}
+   ]},
+ { title:"Telefonsamtalet",
+   why:"Klockan 18.15. En man ringer och säger att han är Görans brorson. Han vill veta hur Göran mår och vilka mediciner han får.",
+   q:"Vad svarar du?",
+   sheet:"Närstående har inte automatiskt rätt att få veta allt. Kontrollera samtycke och följ rutinen för sekretessprövning.",
+   opts:[
+    {t:"Berättar hur Göran mår och vilka mediciner han har – det är ju släkt.", ok:false,
+     fb:"Närstående har inte automatiskt rätt att få veta allt. Du vet inte heller säkert vem som ringer, eller om Göran vill att brorsonen ska få information.",
+     c:"Uppgifter om Görans hälsa har lämnats ut utan att han har fått frågan."},
+    {t:"Berättar om diagnosen men inte om medicinerna.", ok:false,
+     fb:"Även diagnosen är en sekretesskyddad uppgift. Det spelar ingen roll att du lämnar ut ”lite” – samtycket behöver kontrolleras först.",
+     c:"Göran kanske inte ens har berättat för brorsonen att cancern har spridit sig."},
+    {t:"Förklarar vänligt att du inte kan lämna ut uppgifter utan att veta att Göran samtycker. Du erbjuder dig att fråga Göran och att sjuksköterskan kan återkomma.", ok:true,
+     fb:"Du skyddar Görans uppgifter utan att vara avvisande, följer rutinen och hjälper brorsonen vidare."},
+    {t:"Säger att du inte får säga något och lägger på.", ok:false,
+     fb:"Det stämmer att du inte kan lämna ut uppgifter på egen hand – men du kan lyssna, förklara varför och hjälpa honom vidare.",
+     c:"Brorsonen blir orolig och arg, och Göran får inte veta att någon har hört av sig."}
+   ]},
+ { title:"Den missade dosen",
+   why:"Klockan 19.00. Du märker att Görans smärtlindrande dos från eftermiddagen inte är signerad. Göran säger att han har mer ont än vanligt.",
+   q:"Vad gör du?",
+   sheet:"Vid en missad dos: kontakta sjuksköterskan direkt, dokumentera och rapportera avvikelsen. Ge aldrig en extra dos på eget initiativ.",
+   opts:[
+    {t:"Ger eftermiddagsdosen och kvällsdosen samtidigt, så att han kommer i fatt.", ok:false,
+     fb:"En undersköterska ändrar aldrig själv en ordination. Du vet inte heller säkert att dosen inte har getts – den kan ha missats i signeringen.",
+     c:"Göran kan få en för hög dos, med risk för allvarliga biverkningar."},
+    {t:"Kontaktar sjuksköterskan direkt så att Görans smärta bedöms, dokumenterar och rapporterar avvikelsen enligt rutinen.", ok:true,
+     fb:"Omedelbar hjälp och avvikelserapportering fyller olika funktioner, och båda behövs. Sjuksköterskan bedömer vad Göran behöver nu."},
+    {t:"Skriver en avvikelse och väntar till nästa ordinarie läkemedelsrunda.", ok:false,
+     fb:"Avvikelsen är viktig, men den hjälper inte Göran nu. Han har ont, och sjuksköterskan behöver få veta direkt.",
+     c:"Göran har ont i flera timmar i onödan."},
+    {t:"Ber en kollega med delegering ge en extra dos.", ok:false,
+     fb:"Inte heller en kollega med delegering får ge en extra dos utan ordination. Det är sjuksköterskan som ska kontaktas.",
+     c:"Kollegan hamnar i en situation där hen går utanför sitt uppdrag."}
+   ]},
+ { title:"Delegeringen",
+   why:"Klockan 20.00. En stressad kollega ber dig ge en annan patient hans insulin. Du började här för två veckor sedan. På din förra arbetsplats hade du delegering för insulin.",
+   q:"Vad gör du?",
+   sheet:"En delegering gäller en viss verksamhet och följer inte med till en ny arbetsplats. Kontakta sjuksköterskan vid osäkerhet.",
+   opts:[
+    {t:"Ger insulinet – du har ju gjort det många gånger förut.", ok:false,
+     fb:"En delegering från en tidigare arbetsplats gäller inte automatiskt på en ny. Beslutet ska vara personligt, skriftligt, tidsbegränsat och gälla en viss verksamhet.",
+     c:"Du utför en uppgift du inte har behörighet till här – och ansvarar själv för det."},
+    {t:"Ger insulinet om kollegan signerar i stället för dig.", ok:false,
+     fb:"Att någon annan signerar ändrar inte vem som utförde uppgiften. Det gör också dokumentationen felaktig.",
+     c:"Om något går fel går det inte att följa vad som faktiskt hände."},
+    {t:"Förklarar att du inte har delegering här och kontaktar sjuksköterskan så att insulinet ges av någon som har behörighet.", ok:true,
+     fb:"Att säga ifrån när en uppgift ligger utanför ditt uppdrag är en del av ditt ansvar. En instruktion från en kollega tar inte bort det ansvaret."},
+    {t:"Ger insulinet och ber om en ny delegering i morgon.", ok:false,
+     fb:"Delegeringen behövs innan uppgiften utförs, inte efteråt. Du behöver också dokumenterade kunskaper för just den här verksamheten.",
+     c:"Patienten får insulin av någon som formellt inte har behörighet."}
+   ]},
+ { title:"”Jag orkar inte mer”",
+   why:"Klockan 21.30. När du hjälper Göran i säng säger han tyst: ”Jag orkar inte mer. I andra länder får man ju hjälp att dö.”",
+   q:"Vad gör du?",
+   sheet:"Fråga vad personen menar, lyssna utan att argumentera för en egen hållning och förmedla till sjuksköterskan så att lidande och suicidrisk kan bedömas.",
+   opts:[
+    {t:"Förklarar att dödshjälp inte är tillåten i Sverige.", ok:false,
+     fb:"Det stämmer att eutanasi inte är tillåten i Sverige – men Göran behöver inte en lektion i juridik just nu. Hans fråga kan vara en öppning till ett samtal om lidande eller oro.",
+     c:"Göran känner sig inte lyssnad på och slutar kanske att prata om hur han mår."},
+    {t:"Frågar lugnt vad han menar och vad som är svårast just nu, lyssnar utan att argumentera och förmedlar det han sagt till sjuksköterskan.", ok:true,
+     fb:"Du tar Göran på allvar, håller isär lag och egen åsikt och ser till att hans lidande – och en eventuell suicidrisk – kan bedömas. Vid omedelbar fara lämnar du honom inte ensam och följer akutrutinen."},
+    {t:"Byter samtalsämne för att muntra upp honom.", ok:false,
+     fb:"Att byta ämne stänger samtalet. ”Jag orkar inte mer” behöver tas på allvar och undersökas.",
+     c:"Kanske har Göran svår smärta eller ångest som ingen får veta om."},
+    {t:"Dokumenterar vad han sa och tar upp det på nästa teamträff.", ok:false,
+     fb:"Dokumentationen behövs, men den ersätter inte en direkt kontakt. Sjuksköterskan behöver få veta i kväll.",
+     c:"Om Göran har tankar på att ta sitt liv kan det dröja flera dagar innan någon agerar."}
+   ]},
+ { title:"Nattens larm",
+   why:"Klockan 23.10. Du hittar Göran livlös i sängen. Han andas inte. Du vet inte om det finns något beslut om Ej HLR. En kollega säger: ”Han är ju palliativ, vi gör väl ingenting.”",
+   q:"Vad gör du?",
+   sheet:"Vid misstänkt hjärtstopp följs larm- och HLR-rutinen. Finns inget känt, giltigt beslut är utgångspunkten att påbörja HLR. Gör aldrig ett eget Ej HLR-beslut.",
+   opts:[
+    {t:"Håller med kollegan – han har ju palliativ vård.", ok:false,
+     fb:"Palliativ vård betyder inte att det finns ett beslut om Ej HLR. Hög ålder, diagnos eller boendeform är inte ensamma tillräckliga skäl – och du får aldrig göra ett eget Ej HLR-beslut i den akuta situationen.",
+     c:"En patient som inte hade något beslut får ingen hjärt-lungräddning."},
+    {t:"Ringer Görans son först och frågar vad han vill.", ok:false,
+     fb:"Närstående ska inte bära ansvaret för ett medicinskt beslut, och i en akut situation finns ingen tid att vänta. Följ larmrutinen.",
+     c:"Dyrbara minuter går förlorade, och sonen får ett ansvar som inte är hans."},
+    {t:"Larmar enligt rutinen och påbörjar HLR, eftersom inget känt, giltigt beslut om att avstå finns.", ok:true,
+     fb:"Om inget känt, giltigt beslut eller annat tydligt skäl att avstå finns är utgångspunkten att påbörja HLR. Därför är det så viktigt att veta i förväg var besluten finns dokumenterade."},
+    {t:"Letar i journalen efter ett beslut innan du larmar.", ok:false,
+     fb:"Du behöver veta var besluten finns innan något händer – inte leta när det händer. Vid misstänkt hjärtstopp följer du larm- och HLR-rutinen direkt.",
+     c:"Tiden utan andning blir längre medan du söker i journalen."}
+   ]}
+];
+
+/* ---------- SCORM 1.2 (valfritt) ---------- */
+var LMS = (function(){
+  var api = null;
+  function find(w){ var n=0; while(w && !w.API && w.parent && w.parent!==w && n<10){ w=w.parent; n++; } return w && w.API ? w.API : null; }
+  try { api = find(window) || (window.opener ? find(window.opener) : null); } catch(e){ api = null; }
+  var ok = false;
+  function call(fn, a, b){ try { return api ? api[fn](a, b) : ""; } catch(e){ return ""; } }
+  return {
+    init:function(){ if(!api) return; ok = String(call("LMSInitialize","")) === "true";
+      var st = call("LMSGetValue","cmi.core.lesson_status");
+      if(st==="not attempted" || st===""){ call("LMSSetValue","cmi.core.lesson_status","incomplete"); call("LMSCommit",""); } },
+    finish:function(pct){ if(!ok) return;
+      call("LMSSetValue","cmi.core.score.min","0"); call("LMSSetValue","cmi.core.score.max","100");
+      call("LMSSetValue","cmi.core.score.raw", String(pct));
+      call("LMSSetValue","cmi.core.lesson_status","completed"); call("LMSCommit",""); },
+    close:function(){ if(ok){ call("LMSFinish",""); ok=false; } }
+  };
+})();
+
+/* ---------- Tillstånd och rendering ---------- */
+var state = { step:-1, tried:[], firstTry:0, solved:false, done:[] };
+var main = document.getElementById("main");
+var rail = document.getElementById("rail");
+var KEYS = ["A","B","C","D"];
+
+function esc(s){ return s; }
+function renderRail(){
+  rail.innerHTML = STEPS.map(function(s,i){
+    var cls = state.done[i] ? "done" : (i===state.step ? "current" : "");
+    return '<li class="'+cls+'"'+(i===state.step?' aria-current="step"':'')+'><span class="dot">'+(state.done[i]?"✓":(i+1))+'</span><span class="lbl">'+s.title+'</span></li>';
+  }).join("");
+}
+function sheetHTML(){
+  var items = state.done.map(function(d,i){ return d ? '<li><div><b>'+STEPS[i].title+'</b>'+STEPS[i].sheet+'</div></li>' : ""; }).join("");
+  return '<section class="sheet" aria-label="Lärdomar"><h3>Det här tar du med dig</h3><p class="sub">Växer fram för varje situation du löser.</p>'+
+    (items ? '<ol>'+items+'</ol>' : '<p class="empty">Ännu ingen situation löst.</p>')+'</section>';
+}
+function renderIntro(){
+  renderRail();
+  main.innerHTML =
+    '<section class="case"><h2>Kvällspasset</h2>'+CASE.map(function(p){return "<p>"+p+"</p>";}).join("")+'</section>'+
+    '<p style="max-width:68ch">I varje situation väljer du vad du gör. Väljer du fel ser du vad som kan hända och varför, och får försöka igen. För varje rätt val växer en lista fram under frågorna med det du ska ta med dig från kvällen.</p>'+
+    '<p><button class="btn" id="start" type="button">Börja kvällspasset</button></p>';
+  document.getElementById("start").onclick = function(){ goStep(0); };
+}
+function goStep(i){
+  state.step = i; state.tried = []; state.solved = false;
+  renderStep(); main.focus();
+  window.scrollTo(0,0);
+}
+function renderStep(){
+  renderRail();
+  var s = STEPS[state.step];
+  var html = '<div class="step-head"><span class="step-no">'+(state.step+1)+'</span><h2>'+s.title+'</h2></div>'+
+    '<p class="step-why">'+s.why+'</p><p class="q">'+s.q+'</p><div class="opts" role="group" aria-label="Svarsalternativ">';
+  s.opts.forEach(function(o,k){
+    var cls = state.tried.indexOf(k)>-1 ? (o.ok?"right":"wrong") : "";
+    var dis = (state.solved || state.tried.indexOf(k)>-1) ? " disabled" : "";
+    html += '<button class="opt '+cls+'" data-k="'+k+'" type="button"'+dis+'><span class="key">'+KEYS[k]+'</span><span>'+o.t+'</span></button>';
+  });
+  html += '</div><div id="fb" aria-live="polite"></div>'+sheetHTML();
+  main.innerHTML = html;
+  Array.prototype.forEach.call(main.querySelectorAll(".opt"), function(b){
+    b.onclick = function(){ choose(parseInt(b.getAttribute("data-k"),10)); };
+  });
+}
+function choose(k){
+  var s = STEPS[state.step], o = s.opts[k];
+  if(state.tried.indexOf(k)>-1 || state.solved) return;
+  state.tried.push(k);
+  if(o.ok){
+    state.solved = true;
+    if(state.tried.length===1) state.firstTry++;
+    state.done[state.step] = true;
+  }
+  renderStep();
+  var fb = document.getElementById("fb");
+  if(o.ok){
+    var last = state.step === STEPS.length-1;
+    fb.innerHTML = '<div class="fb ok"><h3>Rätt</h3><p>'+o.fb+'</p></div>'+
+      '<button class="btn" id="next" type="button">'+(last?"Avsluta kvällspasset":"Nästa situation")+'</button>';
+    document.getElementById("next").onclick = function(){ last ? renderEnd() : goStep(state.step+1); };
+    document.getElementById("next").focus();
+  } else {
+    fb.innerHTML = '<div class="fb no"><h3>Inte riktigt</h3><p>'+o.fb+'</p>'+(o.c?'<p class="cons">Vad kan hända: '+o.c+'</p>':'')+'</div>'+
+      '<p class="small">Välj ett annat alternativ.</p>';
+  }
+}
+function renderEnd(){
+  state.step = STEPS.length;
+  renderRail();
+  var pct = Math.round(state.firstTry/STEPS.length*100);
+  LMS.finish(pct);
+  main.innerHTML = '<section class="end"><h2>Kvällspasset är slut</h2>'+
+    '<div class="score"><span class="big">'+state.firstTry+' av 6</span><span>situationer rätt på första försöket</span></div>'+
+    '<p style="max-width:68ch">Här är det viktigaste från kvällens sex situationer. Gemensamt för alla är att du observerar, följer rutinen och för vidare till rätt person – du behöver aldrig lösa svåra juridiska eller medicinska bedömningar ensam.</p>'+
+    sheetHTML().replace('Växer fram för varje situation du löser.','Sex lärdomar från kvällen.')+
+    '<div class="reflect"><h3>Reflektera</h3><p>Vilken av situationerna har du själv varit med om? Vet du var HLR-besluten finns dokumenterade där du arbetar, och hur du rapporterar en avvikelse?</p></div>'+
+    '<p><button class="btn ghost" id="again" type="button">Gör övningen igen</button></p>'+
+    '<p class="small">Övningen bygger på kunskapsstödet för modul 3. Fallet är konstruerat för undervisning. Du kan stänga fönstret nu.</p></section>';
+  document.getElementById("again").onclick = function(){ state = { step:-1, tried:[], firstTry:0, solved:false, done:[] }; renderIntro(); };
+  main.focus();
+}
+
+/* Fallet i dialog */
+var dlg = document.getElementById("caseDlg");
+document.getElementById("caseText").innerHTML = CASE.map(function(p){return "<p>"+p+"</p>";}).join("");
+document.getElementById("openCase").onclick = function(){ if(dlg.showModal){ dlg.showModal(); } else { alert(document.getElementById("caseText").innerText); } };
+document.getElementById("closeCase").onclick = function(){ dlg.close(); };
+
+LMS.init();
+window.addEventListener("beforeunload", LMS.close);
+window.addEventListener("pagehide", LMS.close);
+renderIntro();
+</script>
+</body>
+</html>
