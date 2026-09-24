@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Interaktiv övning om homeostas, allostas, tolerans, abstinens, craving och maladaptation.">
+  <title>Från homeostas till allostas | Ja&Ja AB</title>
+  <style>
+:root{
+  --ink:#183247;--muted:#617384;--blue:#1f5b84;--blue2:#3d7aa5;--orange:#c45b3f;
+  --gold:#ad8a2f;--bg:#f5f8fa;--card:#fff;--line:#cfdbe3;--soft:#eaf2f7;--bad:#a64236;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+button,input{font:inherit}.site-header{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:18px clamp(16px,4vw,48px);background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.brand{display:flex;align-items:center;gap:14px;min-width:0}.logo-mark{width:62px;height:62px;border-radius:50%;background:#17228f;color:#fff;display:grid;place-items:center;font-family:Georgia,serif;font-weight:700;font-size:14px;border:3px solid #ddd;box-shadow:inset 0 0 0 2px #17228f;flex:none}
+.eyebrow,.kicker{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--blue)}h1{font-size:clamp(1.25rem,2.4vw,2rem);margin:.1rem 0}h2{font-size:clamp(1.55rem,3vw,2.35rem);line-height:1.16;margin:.2rem 0 1rem}h3{line-height:1.25}
+.progress-wrap{display:flex;align-items:center;gap:12px;padding:10px clamp(16px,4vw,48px);background:#fff;border-bottom:1px solid var(--line)}.progress-track{height:8px;background:#e3ebf0;border-radius:99px;flex:1;overflow:hidden}.progress-bar{height:100%;width:11%;background:var(--blue);transition:width .3s}.progress-text{font-size:.85rem;color:var(--muted);white-space:nowrap}
+main{max-width:1180px;margin:auto;padding:clamp(18px,4vw,44px)}.screen{display:none;animation:fade .28s ease}.screen.active{display:block}@keyframes fade{from{opacity:.3;transform:translateY(8px)}to{opacity:1;transform:none}}
+.hero-grid,.two-col,.craving-layout,.abstinence-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,4vw,48px);align-items:center}.two-col.wide-viz{grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr)}
+.lead{font-size:1.08rem}.learning-goals,.viz-card,.callout,.checkpoint,.map-wrap,.quiz,.compare-note{background:var(--card);border:1px solid var(--line);border-radius:16px}.learning-goals,.viz-card,.map-wrap,.quiz{padding:20px}.callout,.checkpoint{padding:14px 16px;margin:18px 0}.callout.blue{border-left:5px solid var(--blue)}.callout.orange{border-left:5px solid var(--orange)}.callout.neutral,.checkpoint{border-left:5px solid #7b8b97}
+.balance-illustration{height:330px;position:relative;border-radius:20px;background:linear-gradient(#eef5f8,#fff);border:1px solid var(--line);overflow:hidden}.balance-line{position:absolute;left:10%;right:10%;top:50%;height:2px;background:#7b8b97}.balance-ball{position:absolute;width:34px;height:34px;border-radius:50%;background:var(--blue);left:calc(50% - 17px);top:calc(50% - 17px);animation:balance 3.4s ease-in-out infinite}.balance-label{position:absolute;left:20px;font-weight:700}.balance-label.top{top:28px}.balance-label.bottom{bottom:28px}.baseline-label{position:absolute;right:18px;top:calc(50% + 8px);font-size:.8rem;color:var(--muted)}@keyframes balance{0%,100%{transform:translateY(0)}25%{transform:translateY(-95px)}55%{transform:translateY(60px)}85%{transform:translateY(0)}}
+.ghost,.primary-btn,.concept-card,.stage-btn,.trigger-btn{min-height:44px;border-radius:12px;border:1px solid var(--line);padding:10px 14px;cursor:pointer;background:#fff;color:var(--ink)}.ghost:hover,.concept-card:hover,.stage-btn:hover,.trigger-btn:hover{border-color:var(--blue)}.primary-btn{background:var(--blue);color:#fff;border-color:var(--blue);font-weight:700}.hidden{display:none!important}
+.concept-row,.trigger-grid,.stage-tabs{display:flex;gap:10px;flex-wrap:wrap}.concept-card,.trigger-btn{flex:1 1 130px;text-align:left}.concept-card span,.trigger-btn span{display:block;font-size:1.5rem}.concept-card strong,.trigger-btn strong{display:block}.concept-card small,.trigger-btn small{display:block;color:var(--muted)}.selected{outline:3px solid rgba(31,91,132,.18);border-color:var(--blue)!important}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.chart{display:block;width:100%;height:auto}.axis,.old-baseline,.new-baseline{stroke:#7f8f9b;stroke-width:2;stroke-dasharray:7 7}.old-baseline{opacity:.55}.new-baseline{stroke:var(--orange)}.curve{fill:none;stroke:var(--blue);stroke-width:5;stroke-linecap:round}.curve.series2{stroke:#4d8c74}.curve.warning{stroke:var(--orange)}.curve.thick{stroke-width:6}.moving-dot{fill:var(--blue)}.moving-dot.series2{fill:#4d8c74}.moving-dot.warning{fill:var(--orange)}.svg-label{font-size:17px;fill:#536776}.svg-label.strong{font-weight:700;fill:var(--ink)}.arrowline,.map-line{stroke:#8195a3;stroke-width:3;fill:none;marker-end:url(#arrow)}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:.85rem;color:var(--muted)}.swatch,.dash{display:inline-block;width:24px;height:3px;background:var(--blue);vertical-align:middle;margin-right:6px}.dash{background:repeating-linear-gradient(90deg,#7f8f9b 0 6px,transparent 6px 10px)}
+.big-number{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:var(--orange);color:#fff;font-weight:800;font-size:1.4rem}.meter-block label{display:flex;justify-content:space-between;gap:10px;margin-top:14px}.meter,.baseline-meter{height:12px;background:#e5edf2;border-radius:99px;overflow:hidden}.meter>div{height:100%;background:var(--blue);transition:width .35s}.baseline-meter{position:relative;height:18px}.baseline-meter:before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;background:#7d8e99}.baseline-meter>div{position:absolute;width:14px;height:14px;border-radius:50%;background:var(--orange);top:2px;left:calc(50% - 7px);transition:left .35s}
+.dose-control{padding:18px;background:#fff;border:1px solid var(--line);border-radius:14px}.dose-control input{width:100%}.range-labels{display:flex;justify-content:space-between;color:var(--muted);font-size:.8rem}.bar-compare{display:flex;gap:28px;align-items:flex-end;justify-content:center;min-height:290px}.bar-group{display:grid;grid-template-rows:auto 220px auto;gap:8px;text-align:center}.bar-shell{width:90px;height:220px;background:#e8eef2;border-radius:12px;display:flex;align-items:flex-end;overflow:hidden}.bar{width:100%;height:50%;background:#4d8c74;transition:height .3s}.bar.warning{background:var(--orange)}.bar-value{font-weight:700}.equation{display:flex;justify-content:center;gap:14px;font-size:1.15rem;flex-wrap:wrap}
+.body-state{text-align:center}.state-scale{display:flex;justify-content:space-between;font-size:.76rem;color:var(--muted)}.state-track{position:relative;height:300px;margin:12px 0}.old-normal-line,.new-normal-line{position:absolute;left:5%;right:5%;height:2px;background:#7f8f9b;top:42%}.new-normal-line{top:69%;background:var(--orange)}.state-orb{position:absolute;left:50%;transform:translateX(-50%);top:35%;width:110px;height:110px;border-radius:50%;background:var(--blue);color:white;display:grid;place-items:center;padding:10px;transition:top .6s,background .3s}.state-orb.without-drug{top:65%;background:var(--orange)}.symptom-chips{display:flex;flex-wrap:wrap;gap:8px}.symptom-chips span{padding:6px 10px;border-radius:99px;background:#eef2f4}
+.craving-gauge{height:300px;border-radius:18px;background:linear-gradient(to top,#dce9ef,#f7f9fa);position:relative;overflow:hidden;border:1px solid var(--line)}#cravingFill{position:absolute;left:0;right:0;bottom:0;height:8%;background:linear-gradient(to top,var(--orange),#ed9b66);transition:height .45s}.gauge-mark{position:absolute;right:10px;font-size:.78rem;color:#506270}.m1{bottom:12%}.m2{bottom:50%}.m3{bottom:85%}.craving-title,.craving-type{text-align:center;font-weight:700;margin:8px}.compare-note{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px;margin-top:18px}.compare-note div{padding:12px;background:#f6f8fa;border-radius:10px}.compare-note span{display:block;color:var(--muted)}
+.mechanism-map{width:100%;height:auto}.map-node{cursor:pointer}.map-node rect{fill:#fff;stroke:#8397a5;stroke-width:2}.map-node text{text-anchor:middle;font-weight:700;fill:var(--ink);font-size:18px}.map-node text.sub{font-size:13px;font-weight:500;fill:var(--muted)}.map-node.selected rect{stroke:var(--blue);stroke-width:4;fill:#edf5fa}.map-node.result rect{fill:#fff5f0}.map-explanation{margin-top:12px;padding:14px;background:#f6f8fa;border-radius:12px}
+.quiz fieldset{border:1px solid var(--line);border-radius:12px;margin:0 0 16px;padding:14px}.quiz legend{font-weight:700;padding:0 6px}.quiz label{display:block;padding:8px;border-radius:8px}.quiz label:has(input:checked){background:#edf5fa}.feedback{font-weight:700;margin-top:8px}.quiz-actions,.nav-controls{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}.quiz-result{font-size:1.1rem;font-weight:700;margin-top:10px}.final-chain{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:20px 0}.final-chain span{padding:8px 10px;border-radius:10px;background:#fff;border:1px solid var(--line)}
+.nav-controls{margin-top:32px;padding-top:20px;border-top:1px solid var(--line)}.step-dots{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}.step-dot{width:28px;height:28px;border:1px solid var(--line);background:white;border-radius:50%;cursor:pointer;font-size:.75rem}.step-dot.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+footer{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:20px clamp(16px,4vw,48px);border-top:1px solid var(--line);background:#fff;color:var(--muted);font-size:.8rem}.microcopy{color:var(--muted);font-size:.86rem}
+body.paused *{animation-play-state:paused!important}
+@media(max-width:780px){.site-header{position:static;align-items:flex-start;flex-direction:column}.hero-grid,.two-col,.two-col.wide-viz,.craving-layout,.abstinence-grid,.compare-grid{grid-template-columns:1fr}.compare-note{grid-template-columns:1fr}.brand h1{font-size:1.35rem}.logo-mark{width:52px;height:52px}.bar-shell{width:70px}.map-wrap{padding:10px}.mechanism-map{min-width:680px}.map-wrap{overflow-x:auto}.nav-controls{justify-content:center}.nav-controls #prevBtn{order:1}.step-dots{order:2;width:100%}.nav-controls #nextBtn{order:3}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}
+</style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <div class="logo-mark" aria-label="Ja&Ja AB">JA&JA</div>
+      <div>
+        <div class="eyebrow">Evidensbaserad beroendevård · Modul 3</div>
+        <h1>Från balans till beroende</h1>
+      </div>
+    </div>
+    <button class="ghost" id="pauseBtn" type="button" aria-pressed="false">⏸ Pausa animationer</button>
+  </header>
+
+  <div class="progress-wrap" aria-label="Övningens progression">
+    <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+    <div id="progressText" class="progress-text">1 av 9</div>
+  </div>
+
+  <main id="app" tabindex="-1">
+    <section class="screen active" data-step="0" data-hash="start" aria-labelledby="s0-title">
+      <div class="hero-grid">
+        <div>
+          <p class="kicker">Interaktiv övning</p>
+          <h2 id="s0-title">Vad händer när hjärnan försöker återställa balansen?</h2>
+          <p class="lead">Du följer samma grundidé genom nio korta steg: <strong>homeostas → opponentprocess → allostas → tolerans → abstinens → craving → maladaptation.</strong></p>
+          <div class="learning-goals">
+            <h3>Efter övningen ska du kunna förklara</h3>
+            <ul>
+              <li>varför en topp ofta följs av en motreaktion,</li>
+              <li>hur upprepad stark påverkan kan flytta normalläget,</li>
+              <li>varför samma dos kan ge mindre effekt,</li>
+              <li>varför obehag och sug kan finnas kvar när drogen är borta.</li>
+            </ul>
+          </div>
+          <div class="callout neutral"><strong>Viktigt:</strong> Bilderna är pedagogiska modeller. De visar principer – inte exakta dopaminnivåer eller ett identiskt förlopp för alla substanser och personer.</div>
+        </div>
+        <div class="balance-illustration" aria-label="Illustration av balans">
+          <div class="balance-label top">belöning</div>
+          <div class="balance-line"></div>
+          <div class="balance-ball" aria-hidden="true"></div>
+          <div class="balance-label bottom">motreaktion</div>
+          <div class="baseline-label">normalläge</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" data-step="1" data-hash="homeostas" aria-labelledby="s1-title">
+      <p class="kicker">Steg 1 · Homeostas</p>
+      <h2 id="s1-title">Hjärnan försöker hela tiden hålla ett fungerande normalläge</h2>
+      <div class="two-col">
+        <div>
+          <p class="lead">Homeostas betyder att kroppen och hjärnan försöker återgå till jämvikt efter en störning.</p>
+          <div class="concept-row">
+            <button class="concept-card selected" type="button" data-homeostasis="heat"><span>🌡️</span><strong>Värme</strong><small>Du svettas för att kyla ner kroppen.</small></button>
+            <button class="concept-card" type="button" data-homeostasis="cold"><span>❄️</span><strong>Kyla</strong><small>Du huttrar för att skapa värme.</small></button>
+            <button class="concept-card" type="button" data-homeostasis="reward"><span>🙂</span><strong>Belöning</strong><small>En positiv topp följs av en motreaktion.</small></button>
+          </div>
+          <div id="homeostasisExplanation" class="callout blue" aria-live="polite">Vid värme aktiveras en motriktad process – svettning – för att föra kroppen tillbaka mot normalläget.</div>
+        </div>
+        <div class="viz-card">
+          <div class="viz-title">Samma princip: störning → motreaktion → återgång</div>
+          <svg class="chart" id="homeostasisChart" viewBox="0 0 720 330" role="img" aria-labelledby="homeostasisChartTitle">
+            <title id="homeostasisChartTitle">Kurva som visar homeostas med en topp, en mindre motreaktion och återgång till normalläge.</title>
+            <line class="axis" x1="55" y1="165" x2="680" y2="165"></line>
+            <text class="svg-label" x="58" y="153">normalläge</text>
+            <path id="homeostasisPath" class="curve primary" d=""></path>
+            <circle id="homeostasisDot" class="moving-dot" r="8" cx="55" cy="165"></circle>
+            <text class="svg-label strong" x="190" y="55">positiv reaktion</text>
+            <text class="svg-label strong" x="370" y="270">motreaktion</text>
+            <text class="svg-label" x="610" y="190">tillbaka</text>
+          </svg>
+          <div class="legend"><span><i class="swatch primary"></i> känsloläge</span><span><i class="dash"></i> normalläge</span></div>
+        </div>
+      </div>
+      <div class="checkpoint"><strong>Kärnan:</strong> motreaktionen är inte ett fel. Den är hjärnans försök att återställa balans.</div>
+    </section>
+
+    <section class="screen" data-step="2" data-hash="opponentprocess" aria-labelledby="s2-title">
+      <p class="kicker">Steg 2 · Opponentprocess</p>
+      <h2 id="s2-title">Ju starkare påverkan, desto större anledning för systemet att bromsa</h2>
+      <p class="lead">En stark positiv reaktion kan följas av en tydligare negativ motreaktion. I början klingar båda av och personen återgår till sitt gamla normalläge.</p>
+      <div class="compare-grid">
+        <article class="viz-card">
+          <h3>Naturlig belöning</h3>
+          <svg class="chart small" id="naturalChart" viewBox="0 0 560 270" role="img" aria-label="Måttlig positiv topp och liten motreaktion">
+            <line class="axis" x1="45" y1="135" x2="525" y2="135"></line>
+            <path id="naturalPath" class="curve series2"></path>
+            <circle id="naturalDot" class="moving-dot series2" r="7"></circle>
+          </svg>
+          <p>Exempel: mat, social kontakt, fysisk aktivitet. En måttlig topp följs av en måttlig motreaktion.</p>
+        </article>
+        <article class="viz-card">
+          <h3>Stark droginducerad belöning</h3>
+          <svg class="chart small" id="drugChart" viewBox="0 0 560 270" role="img" aria-label="Större positiv topp och djupare motreaktion">
+            <line class="axis" x1="45" y1="135" x2="525" y2="135"></line>
+            <path id="drugPath" class="curve warning"></path>
+            <circle id="drugDot" class="moving-dot warning" r="7"></circle>
+          </svg>
+          <p>Den positiva toppen är större. Hjärnans motreaktion blir också tydligare. Efteråt kan personen känna oro, tomhet eller nedstämdhet.</p>
+        </article>
+      </div>
+      <div class="callout neutral"><strong>Kom ihåg:</strong> “positiv” och “negativ” beskriver riktningen på förstärkningen eller känsloläget – inte om beteendet är bra eller dåligt.</div>
+    </section>
+
+    <section class="screen" data-step="3" data-hash="allostas" aria-labelledby="s3-title">
+      <p class="kicker">Steg 3 · Upprepning och allostas</p>
+      <h2 id="s3-title">När systemet belastas gång på gång börjar själva normalläget flytta sig</h2>
+      <div class="two-col wide-viz">
+        <div class="viz-card">
+          <div class="stage-tabs" role="group" aria-label="Välj stadium">
+            <button type="button" class="stage-btn selected" data-stage="0">1. Tidigt</button>
+            <button type="button" class="stage-btn" data-stage="1">2. Upprepat</button>
+            <button type="button" class="stage-btn" data-stage="2">3. Anpassat</button>
+            <button type="button" class="stage-btn" data-stage="3">4. Allostas</button>
+          </div>
+          <svg class="chart tall" id="allostasisChart" viewBox="0 0 760 390" role="img" aria-labelledby="allostasisTitle">
+            <title id="allostasisTitle">Kurvor som visar minskad positiv topp, större negativ motreaktion och ett normalläge som flyttas nedåt vid upprepad drogexponering.</title>
+            <line class="old-baseline" x1="60" y1="180" x2="710" y2="180"></line>
+            <line id="newBaseline" class="new-baseline" x1="60" y1="180" x2="710" y2="180"></line>
+            <text class="svg-label" x="62" y="166">gamla normalläget</text>
+            <text id="newBaselineLabel" class="svg-label strong" x="520" y="205">nuvarande normalläge</text>
+            <path id="allostasisPath" class="curve warning thick"></path>
+            <circle id="allostasisDot" class="moving-dot warning" r="8"></circle>
+            <g id="toleranceArrow"><path d="M210 70 L210 118" class="arrowline"></path><text class="svg-label strong" x="120" y="54">toppen blir mindre</text></g>
+            <g id="opponentArrow"><path d="M400 280 L400 235" class="arrowline"></path><text class="svg-label strong" x="320" y="315">motreaktionen blir större</text></g>
+          </svg>
+        </div>
+        <div>
+          <div class="big-number" id="stageNumber">1</div>
+          <h3 id="stageTitle">Tidigt bruk: systemet återhämtar sig</h3>
+          <p id="stageText">En stark positiv reaktion följs av en motreaktion, men efteråt återgår personen till ungefär samma normalläge som före intaget.</p>
+          <div class="meter-block">
+            <label>Positiv effekt <span id="rewardValue">stor</span></label><div class="meter"><div id="rewardMeter" style="width:88%"></div></div>
+            <label>Motreaktion <span id="opponentValue">måttlig</span></label><div class="meter"><div id="opponentMeter" style="width:35%"></div></div>
+            <label>Normalläge utan drog <span id="baselineValue">oförändrat</span></label><div class="baseline-meter"><div id="baselineMarker"></div></div>
+          </div>
+          <div class="callout orange" id="stageCallout"><strong>Homeostas:</strong> systemet lyckas fortfarande återgå till utgångsläget.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" data-step="4" data-hash="tolerans" aria-labelledby="s4-title">
+      <p class="kicker">Steg 4 · Tolerans</p>
+      <h2 id="s4-title">Samma dos – mindre upplevd effekt</h2>
+      <div class="two-col">
+        <div>
+          <p class="lead">När hjärnan anpassar sig till återkommande exponering kan samma dos ge en svagare positiv effekt. Det är tolerans.</p>
+          <div class="dose-control">
+            <label for="doseRange">Dos i modellen</label>
+            <input id="doseRange" type="range" min="1" max="5" value="2" step="1">
+            <div class="range-labels"><span>låg</span><span>hög</span></div>
+          </div>
+          <div class="callout blue" id="doseExplanation" aria-live="polite">Vid samma dos blir effekten tydligt mindre efter neuroadaptation. Personen kan därför börja öka dosen för att försöka nå den tidigare effekten.</div>
+          <p class="microcopy">Detta är en förenklad illustration. Tolerans utvecklas olika för olika effekter och substanser.</p>
+        </div>
+        <div class="viz-card">
+          <div class="bar-compare" aria-label="Jämförelse av effekt före och efter tolerans">
+            <div class="bar-group"><div class="bar-label">Tidigt</div><div class="bar-shell"><div id="earlyBar" class="bar series2"></div></div><div id="earlyValue" class="bar-value">80</div></div>
+            <div class="bar-group"><div class="bar-label">Efter tolerans</div><div class="bar-shell"><div id="lateBar" class="bar warning"></div></div><div id="lateValue" class="bar-value">44</div></div>
+          </div>
+          <div class="equation"><span>Samma dos</span><span>→</span><strong>Mindre effekt</strong></div>
+        </div>
+      </div>
+      <div class="checkpoint"><strong>Tolerans är en del av neuroadaptationen.</strong> Hjärnan anpassar sig till substansens närvaro.</div>
+    </section>
+
+    <section class="screen" data-step="5" data-hash="abstinens" aria-labelledby="s5-title">
+      <p class="kicker">Steg 5 · Abstinens</p>
+      <h2 id="s5-title">När drogen försvinner finns motreaktionen kvar</h2>
+      <p class="lead">Ett anpassat system har börjat “räkna med” substansen. När substansen tas bort syns anpassningen tydligt.</p>
+      <div class="abstinence-grid">
+        <div class="viz-card body-state">
+          <div class="state-scale" aria-hidden="true"><span>mår bättre</span><span>gamla normalläget</span><span>mår sämre</span></div>
+          <div class="state-track">
+            <div class="old-normal-line"></div>
+            <div class="new-normal-line"></div>
+            <div id="stateOrb" class="state-orb with-drug"><span id="orbLabel">nära normalt</span></div>
+          </div>
+          <button id="removeDrugBtn" class="primary-btn" type="button">Ta bort substansen</button>
+          <button id="restoreDrugBtn" class="ghost hidden" type="button">Visa med substans igen</button>
+        </div>
+        <div>
+          <div id="abstinenceText" class="callout neutral"><strong>Med substansen:</strong> den positiva drogeffekten kan tillfälligt lyfta personen mot det gamla normalläget. Det betyder inte att systemet är återställt.</div>
+          <div class="symptom-chips" aria-label="Exempel på abstinenssymtom">
+            <span>oro</span><span>irritabilitet</span><span>sömnstörning</span><span>dysfori</span><span>stress</span>
+          </div>
+          <p class="microcopy">Drogspecifika symtom varierar. Här visas framför allt den gemensamma principen: en kvarvarande motreaktion och ett förskjutet normalläge.</p>
+        </div>
+      </div>
+      <div class="checkpoint"><strong>Abstinens:</strong> när substansen tas bort blir den motriktade anpassningen “obromsad”. Symtomen kan ofta ses som en spegelbild av substansens akuta effekt.</div>
+    </section>
+
+    <section class="screen" data-step="6" data-hash="craving" aria-labelledby="s6-title">
+      <p class="kicker">Steg 6 · Craving</p>
+      <h2 id="s6-title">Sug kan handla både om att få belöning och att slippa obehag</h2>
+      <div class="craving-layout">
+        <div>
+          <div class="trigger-grid" role="group" aria-label="Utlösare för craving">
+            <button type="button" class="trigger-btn" data-trigger="cue"><span>👃</span><strong>Cue</strong><small>plats, person, lukt, tid</small></button>
+            <button type="button" class="trigger-btn" data-trigger="stress"><span>⚡</span><strong>Stress</strong><small>konflikt, oro, press</small></button>
+            <button type="button" class="trigger-btn" data-trigger="priming"><span>🥃</span><strong>Priming</strong><small>en liten dos</small></button>
+          </div>
+          <div id="triggerExplanation" class="callout blue" aria-live="polite">Klicka på en trigger och se hur suget förändras.</div>
+        </div>
+        <div class="viz-card craving-meter-card">
+          <div class="craving-title">Craving</div>
+          <div class="craving-gauge" aria-label="Nivå av craving">
+            <div id="cravingFill"></div>
+            <div class="gauge-mark m1">låg</div><div class="gauge-mark m2">medel</div><div class="gauge-mark m3">hög</div>
+          </div>
+          <div id="cravingType" class="craving-type">Välj en trigger</div>
+          <button id="cravingReset" class="ghost" type="button">Återställ</button>
+        </div>
+      </div>
+      <div class="compare-note">
+        <div><strong>Reward craving</strong><span>“Jag vill ha effekten.”</span></div>
+        <div><strong>Relief craving</strong><span>“Jag vill slippa må så här.”</span></div>
+      </div>
+    </section>
+
+    <section class="screen" data-step="7" data-hash="maladaptation" aria-labelledby="s7-title">
+      <p class="kicker">Steg 7 · Maladaptation</p>
+      <h2 id="s7-title">Anpassningen har blivit ett problem i sig</h2>
+      <p class="lead">Neuroadaptation är hjärnans anpassning. När anpassningen gör att systemet fungerar sämre utan drogen talar vi om <strong>maladaptation</strong>.</p>
+      <div class="map-wrap">
+        <svg class="mechanism-map" viewBox="0 0 920 500" role="img" aria-labelledby="mapTitle">
+          <title id="mapTitle">Klickbar karta som visar hur upprepad drogexponering kan leda till neuroadaptation, tolerans, allostas, abstinens och craving.</title>
+          <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z"></path></marker></defs>
+          <path class="map-line" d="M210 245 C280 245 300 120 380 120"></path>
+          <path class="map-line" d="M210 245 C290 245 305 245 380 245"></path>
+          <path class="map-line" d="M210 245 C280 245 300 370 380 370"></path>
+          <path class="map-line" d="M540 120 C630 120 640 220 710 220"></path>
+          <path class="map-line" d="M540 245 C630 245 640 250 710 250"></path>
+          <path class="map-line" d="M540 370 C630 370 640 280 710 280"></path>
+          <g class="map-node selected" tabindex="0" role="button" data-node="exposure"><rect x="60" y="185" width="150" height="120" rx="22"></rect><text x="135" y="228">Upprepad</text><text x="135" y="252">stark</text><text x="135" y="276">påverkan</text></g>
+          <g class="map-node" tabindex="0" role="button" data-node="tolerance"><rect x="380" y="70" width="160" height="100" rx="22"></rect><text x="460" y="113">Tolerans</text><text class="sub" x="460" y="137">mindre effekt</text></g>
+          <g class="map-node" tabindex="0" role="button" data-node="allostasis"><rect x="380" y="195" width="160" height="100" rx="22"></rect><text x="460" y="238">Allostas</text><text class="sub" x="460" y="262">nytt normalläge</text></g>
+          <g class="map-node" tabindex="0" role="button" data-node="sensitization"><rect x="380" y="320" width="160" height="100" rx="22"></rect><text x="460" y="363">Sensitisering</text><text class="sub" x="460" y="387">starkare wanting</text></g>
+          <g class="map-node result" tabindex="0" role="button" data-node="result"><rect x="710" y="185" width="160" height="120" rx="22"></rect><text x="790" y="224">Abstinens</text><text x="790" y="250">+</text><text x="790" y="276">Craving</text></g>
+        </svg>
+        <div id="mapExplanation" class="map-explanation" aria-live="polite"><strong>Upprepad stark påverkan:</strong> systemet försöker kompensera. Det startar en neuroadaptation som kan påverka flera delar samtidigt.</div>
+      </div>
+      <div class="checkpoint"><strong>Maladaptation:</strong> hjärnan har anpassat sig till drogens närvaro på ett sätt som gör funktionen sämre när drogen saknas.</div>
+    </section>
+
+    <section class="screen" data-step="8" data-hash="test" aria-labelledby="s8-title">
+      <p class="kicker">Steg 8 · Testa kedjan</p>
+      <h2 id="s8-title">Kan du förklara processen med egna ord?</h2>
+      <form id="quizForm" class="quiz" novalidate>
+        <fieldset data-answer="b">
+          <legend>1. Vad beskriver homeostas bäst?</legend>
+          <label><input type="radio" name="q1" value="a"> Att kroppen alltid vill skapa starkare reaktioner.</label>
+          <label><input type="radio" name="q1" value="b"> Att kroppen försöker återföra ett rubbat system mot jämvikt.</label>
+          <label><input type="radio" name="q1" value="c"> Att normalläget alltid flyttas nedåt.</label>
+          <div class="feedback"></div>
+        </fieldset>
+        <fieldset data-answer="c">
+          <legend>2. Vad är den centrala skillnaden vid allostas?</legend>
+          <label><input type="radio" name="q2" value="a"> Motreaktionen försvinner helt.</label>
+          <label><input type="radio" name="q2" value="b"> Personen får alltid större rus.</label>
+          <label><input type="radio" name="q2" value="c"> Jämviktsläget har förskjutits och ett negativt läge kan bli det nya normala utan drog.</label>
+          <div class="feedback"></div>
+        </fieldset>
+        <fieldset data-answer="a">
+          <legend>3. Hur hänger tolerans ihop med neuroadaptation?</legend>
+          <label><input type="radio" name="q3" value="a"> Hjärnans anpassning gör att samma dos kan ge mindre effekt.</label>
+          <label><input type="radio" name="q3" value="b"> Tolerans betyder att suget alltid minskar.</label>
+          <label><input type="radio" name="q3" value="c"> Tolerans uppstår först efter avslutad abstinens.</label>
+          <div class="feedback"></div>
+        </fieldset>
+        <fieldset data-answer="b">
+          <legend>4. Varför kan en person ta drogen trots att ruset blivit sämre?</legend>
+          <label><input type="radio" name="q4" value="a"> För att opponentprocessen har försvunnit.</label>
+          <label><input type="radio" name="q4" value="b"> För att drogen kan lindra ett negativt allostatiskt läge och craving samtidigt kan vara stark.</label>
+          <label><input type="radio" name="q4" value="c"> För att hjärnan inte längre reagerar på stress eller cues.</label>
+          <div class="feedback"></div>
+        </fieldset>
+        <div class="quiz-actions"><button class="primary-btn" type="submit">Rätta svaren</button><button id="resetQuiz" class="ghost" type="button">Gör om</button></div>
+        <div id="quizResult" class="quiz-result" aria-live="polite"></div>
+      </form>
+      <div class="final-chain">
+        <strong>Förklara kedjan högt:</strong>
+        <span>stark påverkan</span><b>→</b><span>motreaktion</span><b>→</b><span>neuroadaptation</span><b>→</b><span>tolerans + allostas</span><b>→</b><span>abstinens + craving</span>
+      </div>
+      <div class="callout neutral"><strong>Förenklad minnesregel:</strong> “Hjärnan bromsar. Bromsen tränas. Normalläget flyttas. Samma dos ger mindre topp. Utan drog blir dalen tydlig. Då kan suget handla om både belöning och lindring.”</div>
+    </section>
+
+    <nav class="nav-controls" aria-label="Navigering i övningen">
+      <button id="prevBtn" class="ghost" type="button">← Föregående</button>
+      <div id="stepDots" class="step-dots" aria-label="Välj steg"></div>
+      <button id="nextBtn" class="primary-btn" type="button">Nästa →</button>
+    </nav>
+  </main>
+
+  <footer>
+    <span>© Ja&Ja AB – Joakim Allgefält</span>
+    <span>Pedagogisk modell baserad på Kunskapsstöd modul 3 – Hjärnan och beroendet</span>
+  </footer>
+  <script>
+(function(){
+  const qs=(s,r=document)=>r.querySelector(s), qsa=(s,r=document)=>Array.from(r.querySelectorAll(s));
+  const screens=qsa('.screen'), total=screens.length, prev=qs('#prevBtn'), next=qs('#nextBtn'), dots=qs('#stepDots'), pbar=qs('#progressBar'), ptxt=qs('#progressText');
+  let step=0, paused=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
+  function makeDots(){screens.forEach((_,i)=>{const b=document.createElement('button');b.type='button';b.className='step-dot';b.textContent=i+1;b.setAttribute('aria-label','Gå till steg '+(i+1));b.addEventListener('click',()=>show(i));dots.appendChild(b);});}
+  function show(i){step=(i+total)%total;screens.forEach((s,j)=>s.classList.toggle('active',j===step));qsa('.step-dot').forEach((d,j)=>d.classList.toggle('active',j===step));pbar.style.width=((step+1)/total*100)+'%';ptxt.textContent=(step+1)+' av '+total;prev.disabled=step===0;next.textContent=step===total-1?'Börja om':'Nästa →';const h=screens[step].dataset.hash;if(h)history.replaceState(null,'','#'+h);qs('#app').focus({preventScroll:true});window.scrollTo({top:0,behavior:'smooth'});}
+  prev.addEventListener('click',()=>show(step-1));next.addEventListener('click',()=>show(step===total-1?0:step+1));makeDots();
+  const hash=location.hash.slice(1);const hi=screens.findIndex(s=>s.dataset.hash===hash);show(hi>=0?hi:0);
+
+  const pauseBtn=qs('#pauseBtn');
+  function syncPause(){document.body.classList.toggle('paused',paused);pauseBtn.textContent=paused?'▶ Fortsätt animationer':'⏸ Pausa animationer';pauseBtn.setAttribute('aria-pressed',String(paused));}
+  pauseBtn.addEventListener('click',()=>{paused=!paused;syncPause();});syncPause();
+
+  const hp=qs('#homeostasisPath');hp.setAttribute('d','M55 165 C120 165 135 78 195 72 C238 68 248 165 300 165 C345 165 356 224 414 224 C490 224 520 165 680 165');
+  const np=qs('#naturalPath');np.setAttribute('d','M45 135 C95 135 110 82 155 76 C190 72 200 135 240 135 C280 135 288 165 332 165 C392 165 420 135 525 135');
+  const dp=qs('#drugPath');dp.setAttribute('d','M45 135 C92 135 112 28 170 26 C220 24 228 135 270 135 C318 135 334 232 402 232 C466 232 482 135 525 135');
+  const movers=[[hp,qs('#homeostasisDot'),7000],[np,qs('#naturalDot'),6200],[dp,qs('#drugDot'),6200],[qs('#allostasisPath'),qs('#allostasisDot'),7200]];
+  let last=performance.now(), phase=0;
+  function tick(now){const dt=now-last;last=now;if(!paused)phase+=dt;for(const [path,dot,dur] of movers){if(!path||!dot)continue;try{const len=path.getTotalLength();if(len>0){const pt=path.getPointAtLength(((phase%dur)/dur)*len);dot.setAttribute('cx',pt.x);dot.setAttribute('cy',pt.y);}}catch(e){}}requestAnimationFrame(tick);}requestAnimationFrame(tick);
+
+  const homeText={
+    heat:'Vid värme aktiveras en motriktad process – svettning – för att föra kroppen tillbaka mot normalläget.',
+    cold:'Vid kyla aktiveras en motriktad process – huttring – som producerar värme och för kroppen tillbaka mot normalläget.',
+    reward:'Efter en positiv topp aktiveras en motreaktion som drar känsloläget tillbaka mot normalläget. Det är opponentprocessen.'
+  };
+  qsa('[data-homeostasis]').forEach(b=>b.addEventListener('click',()=>{qsa('[data-homeostasis]').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');qs('#homeostasisExplanation').textContent=homeText[b.dataset.homeostasis];}));
+
+  const stages=[
+    {title:'Tidigt bruk: systemet återhämtar sig',text:'En stark positiv reaktion följs av en motreaktion, men efteråt återgår personen till ungefär samma normalläge som före intaget.',reward:'stor',opp:'måttlig',base:'oförändrat',rw:88,ow:35,bx:50,by:180,path:'M60 180 C120 180 150 70 220 68 C275 67 285 180 330 180 C380 180 395 235 455 235 C530 235 555 180 710 180',call:'Homeostas: systemet lyckas fortfarande återgå till utgångsläget.'},
+    {title:'Upprepat bruk: motreaktionen tränas upp',text:'Hjärnan försöker kompensera för den återkommande starka påverkan. Den negativa motreaktionen blir tydligare och varar längre.',reward:'något mindre',opp:'stark',base:'börjar sjunka',rw:72,ow:58,bx:58,by:205,path:'M60 180 C120 180 150 88 220 86 C274 85 286 180 330 180 C382 180 400 270 470 270 C550 270 575 205 710 205',call:'Neuroadaptation: nervsystemet anpassar sig till den återkommande substansen.'},
+    {title:'Anpassat system: tolerans utvecklas',text:'Samma dos ger mindre positiv effekt, samtidigt som motreaktionen är större. Personen kan börja öka dosen för att försöka nå den tidigare effekten.',reward:'mindre',opp:'mycket stark',base:'förskjutet',rw:54,ow:77,bx:66,by:230,path:'M60 180 C120 180 155 108 220 108 C276 108 286 180 330 180 C384 180 404 304 482 304 C560 304 590 230 710 230',call:'Tolerans: samma dos ger mindre effekt. Motreaktionen har samtidigt blivit starkare.'},
+    {title:'Allostas: det nya normalläget ligger lägre',text:'Motreaktionen hinner inte längre klinga av helt. Ett negativt känsloläge kan bli det nya normala när substansen saknas.',reward:'svagare',opp:'dominerande',base:'tydligt lägre',rw:42,ow:91,bx:75,by:258,path:'M60 180 C125 180 158 125 220 124 C275 124 287 180 330 180 C385 180 410 335 495 335 C575 335 610 258 710 258',call:'Allostas: stabilitet upprätthålls genom att jämviktsläget har flyttats.'}
+  ];
+  function setStage(i){const s=stages[i];qsa('.stage-btn').forEach((b,j)=>b.classList.toggle('selected',j===i));qs('#stageNumber').textContent=i+1;qs('#stageTitle').textContent=s.title;qs('#stageText').textContent=s.text;qs('#rewardValue').textContent=s.reward;qs('#opponentValue').textContent=s.opp;qs('#baselineValue').textContent=s.base;qs('#rewardMeter').style.width=s.rw+'%';qs('#opponentMeter').style.width=s.ow+'%';qs('#baselineMarker').style.left='calc('+s.bx+'% - 7px)';qs('#newBaseline').setAttribute('y1',s.by);qs('#newBaseline').setAttribute('y2',s.by);qs('#newBaselineLabel').setAttribute('y',s.by+25);qs('#allostasisPath').setAttribute('d',s.path);qs('#stageCallout').innerHTML='<strong>'+(['Homeostas','Neuroadaptation','Tolerans','Allostas'][i])+':</strong> '+s.call.replace(/^.*?:\s*/,'');}
+  qsa('.stage-btn').forEach((b,i)=>b.addEventListener('click',()=>setStage(i)));setStage(0);
+
+  const dose=qs('#doseRange');
+  function updateDose(){const d=Number(dose.value);const early=clamp(20+d*15,0,95), late=Math.round(early*(0.44+0.03*d));qs('#earlyBar').style.height=early+'%';qs('#lateBar').style.height=late+'%';qs('#earlyValue').textContent=early;qs('#lateValue').textContent=late;qs('#doseExplanation').textContent='Dos '+d+': tidigt ger modellen en tydligare effekt. Efter neuroadaptation blir effekten mindre vid samma dos. Personen kan därför frestas att öka dosen.';}
+  dose.addEventListener('input',updateDose);updateDose();
+
+  const orb=qs('#stateOrb'), rem=qs('#removeDrugBtn'), res=qs('#restoreDrugBtn'), abst=qs('#abstinenceText');
+  rem.addEventListener('click',()=>{orb.classList.add('without-drug');qs('#orbLabel').textContent='under nytt normalläge';rem.classList.add('hidden');res.classList.remove('hidden');abst.innerHTML='<strong>Utan substansen:</strong> den positiva effekten försvinner men den inlärda motreaktionen finns kvar. Då blir abstinens och negativ affekt tydliga.';});
+  res.addEventListener('click',()=>{orb.classList.remove('without-drug');qs('#orbLabel').textContent='nära normalt';res.classList.add('hidden');rem.classList.remove('hidden');abst.innerHTML='<strong>Med substansen:</strong> den positiva drogeffekten kan tillfälligt lyfta personen mot det gamla normalläget. Det betyder inte att systemet är återställt.';});
+
+  const trg={
+    cue:{h:72,type:'Reward craving',text:'En drogassocierad signal – exempelvis en plats, person, lukt eller tidpunkt – kan aktivera ett sensitiserat motivationssystem och utlösa starkt sug.'},
+    stress:{h:86,type:'Relief craving',text:'Stress och negativ affekt kan utlösa ett sug efter lindring. Drogen blir då attraktiv därför att den tillfälligt kan minska obehaget.'},
+    priming:{h:95,type:'Priming / återaktivering',text:'En liten dos kan återaktivera drogsökande beteende och göra craving starkare, även efter en period av drogfrihet.'}
+  };
+  qsa('.trigger-btn').forEach(b=>b.addEventListener('click',()=>{qsa('.trigger-btn').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');const t=trg[b.dataset.trigger];qs('#cravingFill').style.height=t.h+'%';qs('#cravingType').textContent=t.type;qs('#triggerExplanation').textContent=t.text;}));
+  qs('#cravingReset').addEventListener('click',()=>{qsa('.trigger-btn').forEach(x=>x.classList.remove('selected'));qs('#cravingFill').style.height='8%';qs('#cravingType').textContent='Välj en trigger';qs('#triggerExplanation').textContent='Klicka på en trigger och se hur suget förändras.';});
+
+  const mapText={
+    exposure:'Upprepad stark påverkan: systemet försöker kompensera. Det startar neuroadaptation som kan påverka flera delar samtidigt.',
+    tolerance:'Tolerans: samma dos ger mindre effekt. Anpassningen kan göra att personen ökar dosen för att försöka få tillbaka den tidigare effekten.',
+    allostasis:'Allostas: jämviktsläget har förskjutits. Utan substans ligger personen lättare i ett negativt känsloläge.',
+    sensitization:'Sensitisering: vissa motiverande reaktioner kan bli starkare. Wanting och cue-reaktivitet kan öka även när liking minskar.',
+    result:'Abstinens + craving: när substansen tas bort blir obehaget tydligt, samtidigt som cues, stress eller priming kan utlösa starkt sug.'
+  };
+  qsa('.map-node').forEach(n=>{const act=()=>{qsa('.map-node').forEach(x=>x.classList.remove('selected'));n.classList.add('selected');qs('#mapExplanation').textContent=mapText[n.dataset.node];};n.addEventListener('click',act);n.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();act();}});});
+
+  const quiz=qs('#quizForm');
+  quiz.addEventListener('submit',e=>{e.preventDefault();let score=0;const fs=qsa('fieldset',quiz);fs.forEach(f=>{const chosen=qs('input:checked',f), ok=chosen&&chosen.value===f.dataset.answer;const fb=qs('.feedback',f);if(ok){score++;fb.textContent='✓ Rätt';fb.style.color='#2e6f56';}else{fb.textContent=chosen?'✗ Inte riktigt – läs alternativen igen.':'Välj ett svar.';fb.style.color='#a64236';}});qs('#quizResult').textContent='Du fick '+score+' av '+fs.length+' rätt.'+(score===fs.length?' Bra – du har fått ihop hela kedjan.':' Gå gärna tillbaka till de steg du är osäker på.');});
+  qs('#resetQuiz').addEventListener('click',()=>{quiz.reset();qsa('.feedback',quiz).forEach(f=>f.textContent='');qs('#quizResult').textContent='';});
+})();
+</script>
+</body>
+</html>
